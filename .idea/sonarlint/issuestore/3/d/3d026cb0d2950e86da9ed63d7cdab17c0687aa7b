@@ -1,0 +1,11 @@
+
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+E
+java:S3740>"/Provide the parametrized type for this generic.(ÉÝ©½
+E
+java:S3740v"/Provide the parametrized type for this generic.(ø†—‚
+x
+java:S4087"bRemove this "close" call; closing the resource is handled automatically by the try-with-resources.(Œ¯‰Â
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Ö÷Ö ÿÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(‚¨Ö§
+N	java:S1065"9Replace this use of System.out or System.err by a logger.(ç’¤™
