@@ -9,7 +9,7 @@ public class PartOne2 {
     Map<String, String> subDirectoriesMainDirectories = new HashMap<>();
     Map<String, Integer> fileSizeDirectoryTotal = new HashMap<>();
     public void readFile() {
-        File file = new File("src/com/rag/advent/day_7/testinput.txt");
+        File file = new File("src/com/rag/advent/day_7/input2.txt");
         try {
             String cd = "cd";
             String ls = "ls";

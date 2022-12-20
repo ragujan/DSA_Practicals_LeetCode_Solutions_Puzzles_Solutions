@@ -6,7 +6,7 @@ import java.util.*;
 
 public class PartOne {
     public void readFile() {
-        File file = new File("src/com/rag/advent/day_7/testinput.txt");
+        File file = new File("src/com/rag/advent/day_7/input2.txt");
         try {
             String currentDirectory = "";
             String previousDirectory = "";
