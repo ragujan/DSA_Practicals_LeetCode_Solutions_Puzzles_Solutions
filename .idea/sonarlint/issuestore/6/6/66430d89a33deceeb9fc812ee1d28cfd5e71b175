@@ -1,0 +1,9 @@
+
+J
+java:S3740 "/Provide the parametrized type for this generic.(¶â¬Þùÿÿÿÿ
+`
+java:S2095"EUse try-with-resources or close this "Scanner" in a "finally" clause.(Èñ¾„ýÿÿÿÿ
+S	java:S106,"9Replace this use of System.out or System.err by a logger.(‰ú£ûûÿÿÿÿ
+N	java:S106-"9Replace this use of System.out or System.err by a logger.(ç’¤™
+S	java:S106>"9Replace this use of System.out or System.err by a logger.( ÒÛ¢þÿÿÿÿ
+N	java:S106?"9Replace this use of System.out or System.err by a logger.(™š’¯
