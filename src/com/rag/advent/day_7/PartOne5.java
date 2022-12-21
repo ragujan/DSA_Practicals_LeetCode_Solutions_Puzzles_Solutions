@@ -118,7 +118,7 @@ public class PartOne5 {
                 String mapKey = map.getKey();
                 String mapValue = map.getValue();
 
-                System.out.println("Map key is "+mapKey+" map value is "+mapValue);
+                System.out.println("Map key is " + mapKey + " map value is " + mapValue);
                 Set<String> myset = new LinkedHashSet<>();
                 myset.add(mapValue);
                 List<String> myList = new LinkedList<>();
@@ -126,7 +126,7 @@ public class PartOne5 {
                 for (Map.Entry<String, String> subMap : subDirectoriesMainDirectories.entrySet()) {
                     String subMapKey = subMap.getKey();
                     String subMapValue = subMap.getValue();
-                    System.out.println("sub map key is "+subMapKey+" sub map value is "+ subMapValue);
+                    System.out.println("sub map key is " + subMapKey + " sub map value is " + subMapValue);
                     if (mapValue.equals(subMapValue)) {
                         myset.add(subMapKey);
                         myList.add(subMapKey);
@@ -162,8 +162,7 @@ public class PartOne5 {
         List<List<String>> reverseListMain = new LinkedList<>();
 
 
-        for (List<String> changeList : setToList
-        ) {
+        for (List<String> changeList : setToList) {
             reverseListMain.add(reverseLists(changeList));
         }
 
@@ -179,6 +178,55 @@ public class PartOne5 {
         return reverseList;
     }
 
+    public void test() {
+        for (List<String> list : setToList) {
+            System.out.println("directory sets are being iterated ");
+            System.out.println("main dir is " + list.get(list.size() - 1));
+            int size = 0;
+            String finalDir = "";
+            for (String dir : list) {
+
+                for (Map.Entry<String, Integer> entry : eachDirectoryFileSizes.entrySet()
+                ) {
+                    if (entry.getKey().equals(dir)) {
+                        size += entry.getValue();
+                        System.out.println("file size of " + dir + " is " + size);
+                        finalDir = entry.getKey();
+                    }
+                }
+
+
+            }
+            System.out.println("Final dir is " + finalDir);
+            System.out.println("fina dir size is " + size);
+            System.out.println("\n");
+        }
+    }
+
+    public void test2() {
+        for (List<String> list : setToList
+        ) {
+            System.out.println(list);
+            for (String separateDir : list
+            ) {
+                int filesize = 0;
+                for (List<String> list2:setToList
+                     ) {
+//                    System.out.println(list2.get(list2.size()-1));
+                }
+                for (Map.Entry<String,Integer> entry: eachDirectoryFileSizes.entrySet()
+                     ) {
+                   if(entry.getKey().equals(separateDir)){
+                       filesize = entry.getValue();
+                       System.out.println("file "+separateDir+" is "+filesize);
+                   }
+                }
+            }
+        }
+    }
+    public void checkMapContains() {
+
+    }
     public void calculateWholeDirectory() {
 
         Map<String, Integer> calculatedDirmap = new HashMap<>();
@@ -211,8 +259,21 @@ public class PartOne5 {
         pt.eachDirectoryFileSizes.forEach((key, value) -> System.out.println("file is " + key + " size is " + value));
 
         pt.transferToLinkedList();
-        pt.calculateWholeDirectory();
+//        pt.calculateWholeDirectory();
+        System.out.println("-----------------------------------ragjn");
+//        pt.test();
+        pt.test2();
 
 
     }
+}
+
+abstract class Util {
+
+    abstract public void loopAMapAndDoStuff(Map map);
+
+    public void doStuff() {
+
+    }
+
 }
