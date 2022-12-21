@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PartOne {
-    File file = new File("src/com/rag/advent/day_7/input2.txt");
+
+
     String cdCmd = "$ cd";
     String lsCmd = "$ ls";
     String currentDirectory = "";
-    public void doStuff(){
-        List<String> fileLines = Util.inputFile(file);
+
+    public void doStuff() {
+        List<String> fileLines = Util.inputFile();
         fileLines.stream().forEach(this::accept);
+
+
     }
 
 
@@ -25,7 +29,6 @@ public class PartOne {
         if (s.contains(cdCmd)) {
             currentDirectory = s.split(" ")[2];
         }
-
-        System.out.println("current directory is "+currentDirectory);
+        System.out.println(s);
     }
 }

@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Util {
-
-    public static List<String> inputFile(File file){
+    static File file = new File("src/com/rag/advent/day_7/input2.txt");
+    public static List<String> inputFile(){
         List<String> list = new LinkedList<>();
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(Util.file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 list.add(line);
