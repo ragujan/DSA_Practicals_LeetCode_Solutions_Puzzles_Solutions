@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class TestCheck {
-    //directories and their file sizes without sub directories
+    //directories and their file sizes without sub directory sizes is not added
     Map<String, Integer> dirFileSizes = new HashMap<>();
     List<List<String>> list = new LinkedList<>();
 
