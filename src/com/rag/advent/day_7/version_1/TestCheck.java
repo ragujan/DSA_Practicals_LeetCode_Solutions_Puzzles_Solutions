@@ -1,4 +1,4 @@
-package com.rag.advent.day_7;
+package com.rag.advent.day_7.version_1;
 
 import java.util.HashMap;
 import java.util.LinkedList;
