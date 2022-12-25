@@ -1,4 +1,4 @@
-package com.rag.advent.day_7.version_2;
+package com.rag.advent.day_7.tryperfect;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Util {
     static File file = new File("src/com/rag/advent/day_7/input2.txt");
     public static List<String> inputFile(){
+//        file = new File("src/com/rag/advent/day_7/tryperfect/sample.txt");
         List<String> list = new LinkedList<>();
         try (Scanner scanner = new Scanner(Util.file)) {
             while (scanner.hasNextLine()) {

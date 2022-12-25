@@ -1,53 +1,134 @@
 package com.rag.advent;
 
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 
 public class Test {
+
     public static void main(String[] args) {
+        List<Person> list = new LinkedList<>();
+        Person p = new Person("rag", LocalDate.of(2000, 8, 14), Person.Sex.MALE, "stifer", 22);
+        list.add(p);
+        p = new Person("marshall", LocalDate.of(2002, 8, 14), Person.Sex.MALE, "stifer", 22);
+        list.add(p);
+        p = new Person("Mathers", LocalDate.of(2002, 8, 14), Person.Sex.MALE, "stifer", 18);
+        list.add(p);
 
-        Scanner myobj = new Scanner(System.in);
-        System.out.println("Enter to start with");
-        if (myobj.hasNextInt()) {
-            String input = myobj.nextLine();
-            Test t = new Test();
-            t.doThis(input);
-        }else{
-            System.out.println("Invalid input! program stopped ");
-        }
+        Stream<Person> stream1 = list.stream();
+        Stream<Person> filter1 = stream1.filter(person -> person.age > 20);
 
+        Stream<Person> stream2 = list.stream();
+        Stream<Person> filter2 = stream2.filter(person -> person.age > 20);
+        IntStream is = filter2.mapToInt(value -> value.getAge());
+
+        int sum = is.sum();
+        System.out.println(sum);
+    }
+}
+
+
+class Person {
+    public enum Sex {
+        MALE, FEMALE
+    }
+
+    String name;
+    LocalDate bday;
+    Sex gender;
+    String email;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getBday() {
+        return bday;
+    }
+
+    public void setBday(LocalDate bday) {
+        this.bday = bday;
+    }
+
+    public Sex getGender() {
+        return gender;
+    }
+
+    public void setGender(Sex gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    int age = 0;
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getAge() {
+        bday = LocalDate.of(2000, 8, 14);
+        LocalDate curDate = LocalDate.now();
+        Period period = Period.between(bday, curDate);
+        int age = period.getYears();
+        return age;
+    }
+
+    public void printPerson() {
 
     }
 
-    public void doThis(String fromNumberStr) {
-        int fromNumber = Integer.parseInt(fromNumberStr);
+    public void printPersons(List<Person> person, CheckPerson tester) {
 
-        int calucalationTotal = 0;
-        String evidenceFactorial = "";
-        String finalStatementText = "The factorial of " + fromNumber + " is ";
-        if (fromNumber < 0) {
-
-            finalStatementText = "Invalid input! program stopped ";
-            System.out.println(finalStatementText);
-            return;
-        }
-        for (int i = fromNumber; i > 0; i--) {
-
-            calucalationTotal = i * (calucalationTotal);
-            if (calucalationTotal == 0) {
-                calucalationTotal = i;
-
+        for (Person p : person) {
+            if (tester.test(p)) {
+                System.out.println("HEY");
             }
-            if (i != 1) {
-                evidenceFactorial += Integer.toString(fromNumber - (i - 1)) + " X ";
-            } else {
-                evidenceFactorial += Integer.toString(fromNumber - (i - 1));
-            }
-
         }
-        evidenceFactorial = fromNumber + "! = " + evidenceFactorial;
-        finalStatementText = finalStatementText + calucalationTotal;
-        System.out.println(evidenceFactorial);
-        System.out.println(finalStatementText);
+    }
+
+    public Person() {
+
+    }
+
+    public Person(String name, LocalDate bday, Sex gender, String email, int age) {
+        this.name = name;
+        this.bday = bday;
+        this.gender = gender;
+        this.email = email;
+        this.age = age;
+    }
+
+    public void printPersons() {
+
+    }
+
+}
+
+interface CheckPerson {
+    boolean test(Person p);
+}
+
+class PersonEligible implements CheckPerson {
+    public boolean test(Person p) {
+        boolean state = false;
+        if (p.gender == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() <= 25) {
+            state = true;
+        }
+        return state;
     }
 }
