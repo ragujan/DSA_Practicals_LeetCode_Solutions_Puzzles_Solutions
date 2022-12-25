@@ -11,7 +11,6 @@ public class PartOne {
     String cdCmd = "$ cd";
     String lsCmd = "$ ls";
     String currentDirectory = "";
-
     public void doStuff() {
         List<String> fileLines = Util.inputFile();
         fileLines.stream().forEach(this::accept);
@@ -26,7 +25,9 @@ public class PartOne {
     }
 
     private void accept(String s) {
+
         if (s.contains(cdCmd)) {
+
             currentDirectory = s.split(" ")[2];
         }
         System.out.println(s);
