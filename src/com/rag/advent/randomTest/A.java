@@ -1,4 +1,4 @@
-package com.rag.advent.RandomTest;
+package com.rag.advent.randomTest;
 
 import java.util.LinkedList;
 import java.util.List;

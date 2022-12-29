@@ -1,4 +1,4 @@
-package com.rag.advent;
+package com.rag.advent.randomTest;
 
 import java.time.LocalDate;
 import java.time.Period;

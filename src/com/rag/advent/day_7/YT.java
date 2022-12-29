@@ -1,4 +1,4 @@
-package com.rag.advent.day_7_working_fine;
+package com.rag.advent.day_7;
 
 import java.util.LinkedList;
 import java.util.List;
