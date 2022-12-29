@@ -59,8 +59,8 @@ public class PartTwo {
                 System.out.println("+++++++++++++++++++++");
                 System.out.println(horiList.get(i).get(j));
                 System.out.println("hPos is " + hPos + " vPos is " + vPos);
-                System.out.println(horiList.get(i));
-                System.out.println(vertiList.get(j));
+//                System.out.println(horiList.get(i));
+//                System.out.println(vertiList.get(j));
                 int scenicScore = calculateBlockingTreeCount(tree,hList,vList,hPos,vPos);
                 System.out.println("scenice socre is "+scenicScore);
                 scenicScoreList.add(scenicScore);
