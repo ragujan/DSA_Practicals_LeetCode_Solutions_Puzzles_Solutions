@@ -1,11 +1,11 @@
 package com.rag.advent.day_8;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class Test {
+public class PartOne {
     public static void main(String[] args) {
-        Test t = new Test();
+        PartOne t = new PartOne();
+//        t.doStuff(Util.inputFileTest());
         t.doStuff(Util.inputFile());
     }
 
@@ -19,7 +19,9 @@ public class Test {
             row++;
         }
         column = horizontalLine.length();
-        System.out.println("=======");
+        System.out.println("col and rows are " + column + " " + row);
+        int outLineTreeCount = (2 * row) + ((column - 2) * 2);
+
         List<List<Integer>> horiList = new LinkedList<>();
         List<List<Integer>> vertiList = new LinkedList<>();
         createList(vertiList, column);
@@ -51,7 +53,7 @@ public class Test {
                 System.out.println(horiList.get(i).get(j) + " hPos is " + hPos + " vPos is " + vPos);
                 System.out.println(horiList.get(i));
                 System.out.println(vertiList.get(j));
-                if(isTreeVisible(tree, hList, vList, hPos, vPos)){
+                if (isTreeVisible(tree, hList, vList, hPos, vPos)) {
                     visibleTreeCounts++;
                 }
                 System.out.println("000000000000000============");
@@ -60,21 +62,21 @@ public class Test {
             System.out.println("=============");
         }
         System.out.println(visibleTreeCounts);
+        System.out.println("total visible tree count is " + (visibleTreeCounts + outLineTreeCount));
+
     }
 
 
-
-    public boolean isTreeVisible(int tree,List<Integer> hList, List<Integer>vList,int hPos, int vPos) {
+    public boolean isTreeVisible(int tree, List<Integer> hList, List<Integer> vList, int hPos, int vPos) {
         boolean isTreeVisibleFromOutside = true;
-        int[] iH = {6, 5, 3, 3, 2};
-        int[] iV = {3, 5, 3, 5, 3};
+
 //        int tree = 3;
 //        //positions
 //        int hPos = 2;
 //        int vPos = 2;
         //positions in reverse
-        int hRPos = iH.length - hPos - 1;
-        int vRPos = iV.length - vPos - 1;
+        int hRPos = hList.size() - hPos - 1;
+        int vRPos = vList.size() - vPos - 1;
 //        List<Integer> hList = Arrays.stream(iH).boxed().collect(Collectors.toList());
 //        List<Integer> vList = Arrays.stream(iV).boxed().collect(Collectors.toList());
         boolean isTallerTreeFoundStartHori = false;
@@ -87,8 +89,8 @@ public class Test {
         Collections.reverse(hList);
         Collections.reverse(vList);
 
-        isTallerTreeFoundReverseHori = compareFromEveryWhere(tree, vRPos, vList, isTallerTreeFoundReverseHori);
-        isTallerTreeFoundReverseVerti = compareFromEveryWhere(tree, hRPos, hList, isTallerTreeFoundReverseVerti);
+        isTallerTreeFoundReverseHori = compareFromEveryWhere(tree, hRPos, hList, isTallerTreeFoundReverseHori);
+        isTallerTreeFoundReverseVerti = compareFromEveryWhere(tree, vRPos, vList, isTallerTreeFoundReverseVerti);
 
 
         System.out.println(isTallerTreeFoundStartHori);
@@ -98,6 +100,8 @@ public class Test {
         if (isTallerTreeFoundStartHori && isTallerTreeFoundStartVerti && isTallerTreeFoundReverseHori && isTallerTreeFoundReverseVerti) {
             isTreeVisibleFromOutside = false;
         }
+        Collections.reverse(hList);
+        Collections.reverse(vList);
         return isTreeVisibleFromOutside;
     }
 
@@ -106,10 +110,13 @@ public class Test {
             if (trees.get(i) >= tree) {
                 System.out.println(trees.get(i));
                 isTallerTreeFound = true;
+            } else {
+                System.out.println("tree size is " + trees.get(i) + " tree is " + tree);
             }
+
         }
 
-        System.out.println("-----------");
+
         return isTallerTreeFound;
     }
 

@@ -28,6 +28,8 @@ public class Test {
 
         int sum = is.sum();
         System.out.println(sum);
+        String trees = "002220132213130200100332200140301325451123154323515145222525421135230113344411313343203012321310011";
+        System.out.println(trees.length());
     }
 }
 
