@@ -10,19 +10,29 @@ public class Test {
         t.posH = 1;
         t.posT = 1;
 
-        t.moveH("R 5");
-        t.moveH("L 4");
+//        t.moveH("R 4");
+//        t.moveH("U 4");
+//        t.moveH("L 3");
+//        t.moveH("D 1");
+//        t.moveH("R 4");
+//        t.moveH("D 1");
+//        t.moveH("L 5");
+//        t.moveH("R 2");
         t.doStuff(Util.inputFileTest());
-
+        System.out.println(t.visitedPoints);
+        long total = t.visitedPoints.stream().count();
+        System.out.println(total);
     }
 
     public void doStuff(List<String> inst) {
         for (String s : inst) {
+            this.moveH(s);
         }
     }
 
     int posH = 1;
     int posT = 1;
+    int posHBeforeMove = 1;
 
     String direction = "";
     Set<Integer> visitedPoints = new HashSet<>();
@@ -30,6 +40,7 @@ public class Test {
     public void moveH(String direction) {
         int steps = Integer.parseInt(direction.split(" ")[1]);
         String moveTo = direction.split(" ")[0];
+        this.posHBeforeMove = posH;
         this.direction = moveTo;
         if (moveTo.equals("R")) {
             posH = posH + steps;
@@ -37,11 +48,12 @@ public class Test {
             posH = posH - steps;
         } else if (moveTo.equals("U")) {
             posH = posH + (steps * 6);
-        } else if (moveTo.equals("U")) {
+        } else if (moveTo.equals("D")) {
             posH = posH - (steps * 6);
         }
-        System.out.println("-------------");
         moveT();
+
+        System.out.println("-------------");
     }
 
     public void tailTrailsSameRow(int currentPos, int movingPosition) {
@@ -53,6 +65,22 @@ public class Test {
         }
         if (currentPos - movingPosition < 0) {
             for (int i = currentPos; i <= movingPosition; i++) {
+                System.out.println("moving from " + i);
+                visitedPoints.add(i);
+            }
+        }
+
+    }
+
+    public void tailTrailsSameCol(int currentPos, int movingPosition) {
+        if (currentPos - movingPosition > 0) {
+            for (int i = currentPos; i >= movingPosition; i -= 6) {
+                System.out.println("moving from " + i);
+                visitedPoints.add(i);
+            }
+        }
+        if (currentPos - movingPosition < 0) {
+            for (int i = currentPos; i <= movingPosition; i += 6) {
                 System.out.println("moving from " + i);
                 visitedPoints.add(i);
             }
@@ -77,33 +105,87 @@ public class Test {
                 int currentPos = posT;
                 if (this.direction.equals("R")) {
                     posT = posH - 1;
-                    tailTrailsSameRow(currentPos, posT);
                 } else if (this.direction.equals("L")) {
                     posT = posH + 1;
-                    tailTrailsSameRow(currentPos, posT);
                 }
+                tailTrailsSameRow(currentPos, posT);
                 System.out.println("movable");
                 this.trackPositions();
             }
         }
 
         if (colH == colT) {
+            this.trackPositions();
             System.out.println("both are in same column ");
 
             if (posH - posT > 6 || posT - posH > 6) {
 
+                int currentPos = posT;
                 if (this.direction.equals("U")) {
                     posT = posH - 6;
                 } else if (this.direction.equals("D")) {
                     posT = posH + 6;
                 }
+                tailTrailsSameRow(currentPos, posT);
                 System.out.println("movable");
                 this.trackPositions();
             }
         }
 
         if (colH != colT && rowH != rowT) {
+            int rowDirrerence = (rowFinder(posH) - rowFinder(posT));
+            int colDirrence = colFinder(posH) - colFinder(posT);
+            trackPositions();
+            rowColUpdate();
+            if (this.direction.equals("U") || this.direction.equals("D")) {
+                if (rowDirrerence > 1 || rowDirrerence < -1) {
+                    int currentPos = 0;
+                    if (this.direction.equals("U")) {
+                        posT = posHBeforeMove + 6;
+                        currentPos = posT;
+                        posT = posH - 6;
+                    } else if (this.direction.equals("D")) {
+                        posT = posHBeforeMove - 6;
+                        currentPos = posT;
+                        posT = posH + 6;
+                    }
+                    tailTrailsSameCol(currentPos, posT);
+                }
+                System.out.println("row difference is " + (rowFinder(posH) - rowFinder(posT)));
+            }
+            if (this.direction.equals("L") || this.direction.equals("R")) {
+                System.out.println("direction is "+direction);
+                System.out.println("Col difference is " + colDirrence);
+                if (colDirrence > 1 || colDirrence < -1) {
+                    int currentPos = posT;
+                    if (this.direction.equals("R")) {
+                        if(rowDirrerence>0){
+
+
+                            posT = posHBeforeMove + 1;
+                        }
+                        if(rowDirrerence<0){
+                            System.out.println("T is on top");
+                            posT = posHBeforeMove + 2;
+                        }
+//                            posT = posHBeforeMove + 1;
+                        System.out.println("moved h position was " + posHBeforeMove);
+                        currentPos = posT;
+                        posT = posH - 1;
+                    } else if (this.direction.equals("L")) {
+                        System.out.println("HERE ");
+                        System.out.println("moved h position was " + posHBeforeMove);
+                        posT = posHBeforeMove - 1;
+                        currentPos = posT;
+                        posT = posH + 1;
+                    }
+                    tailTrailsSameRow(currentPos,posT);
+                }
+            }
+
+
             this.trackPositions();
+
             System.out.println("wait for diagonal movement");
         }
 
@@ -117,8 +199,9 @@ public class Test {
         return remainder;
     }
 
+    //gi
     public static int rowFinder(int position) {
-        int divideValue = position / 6;
+        double divideValue = position / Double.valueOf(6);
         int row = 0;
         if (divideValue >= 0 && divideValue <= 1) {
             row = 1;
@@ -138,5 +221,10 @@ public class Test {
 
         System.out.println("Pos H " + this.posH + " Pos T " + this.posT);
 
+    }
+
+    public void rowColUpdate() {
+        System.out.println("pos H row " + rowFinder(posH) + " pos H col " + colFinder(posH));
+        System.out.println("pos T row " + rowFinder(posT) + " pos T col " + colFinder(posT));
     }
 }

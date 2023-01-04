@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Util {
-    static File file = new File("src/com/rag/advent/day_8/input.txt");
+    static File file = new File("src/com/rag/advent/day_9/input.txt");
 
     public static List<String> inputFile() {
-//        file = new File("src/com/rag/advent/day_7/tryperfect/sample.txt");
         List<String> list = new LinkedList<>();
         try (Scanner scanner = new Scanner(Util.file)) {
             while (scanner.hasNextLine()) {
