@@ -165,7 +165,7 @@ public class Test {
                             posT = posHBeforeMove + 1;
                         }
                         if(rowDirrerence<0){
-                            System.out.println("T is on top");
+                            System.out.println("T is on the top");
                             posT = posHBeforeMove + 2;
                         }
 //                            posT = posHBeforeMove + 1;
@@ -173,7 +173,6 @@ public class Test {
                         currentPos = posT;
                         posT = posH - 1;
                     } else if (this.direction.equals("L")) {
-                        System.out.println("HERE ");
                         System.out.println("moved h position was " + posHBeforeMove);
                         posT = posHBeforeMove - 1;
                         currentPos = posT;
@@ -186,7 +185,6 @@ public class Test {
 
             this.trackPositions();
 
-            System.out.println("wait for diagonal movement");
         }
 
     }
