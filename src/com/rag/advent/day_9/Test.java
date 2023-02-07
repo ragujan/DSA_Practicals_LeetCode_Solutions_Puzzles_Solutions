@@ -1,5 +1,6 @@
 package com.rag.advent.day_9;
 
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,10 +19,14 @@ public class Test {
 //        t.moveH("D 1");
 //        t.moveH("L 5");
 //        t.moveH("R 2");
-        t.doStuff(Util.inputFileTest());
+        t.doStuff(Util.inputFile());
         System.out.println(t.visitedPoints);
         long total = t.visitedPoints.stream().count();
-        System.out.println(total);
+        long nValues = t.visitedPoints.stream().filter(integer -> integer < 0).count();
+        long pValues = t.visitedPoints.stream().filter(integer -> integer > 0).count();
+        System.out.println(nValues);
+        System.out.println(pValues);
+        System.out.println(nValues+pValues);
     }
 
     public void doStuff(List<String> inst) {
@@ -126,7 +131,7 @@ public class Test {
                 } else if (this.direction.equals("D")) {
                     posT = posH + 6;
                 }
-                tailTrailsSameRow(currentPos, posT);
+                tailTrailsSameCol(currentPos, posT);
                 System.out.println("movable");
                 this.trackPositions();
             }
@@ -154,17 +159,17 @@ public class Test {
                 System.out.println("row difference is " + (rowFinder(posH) - rowFinder(posT)));
             }
             if (this.direction.equals("L") || this.direction.equals("R")) {
-                System.out.println("direction is "+direction);
+                System.out.println("direction is " + direction);
                 System.out.println("Col difference is " + colDirrence);
                 if (colDirrence > 1 || colDirrence < -1) {
                     int currentPos = posT;
                     if (this.direction.equals("R")) {
-                        if(rowDirrerence>0){
+                        if (rowDirrerence > 0) {
 
 
                             posT = posHBeforeMove + 1;
                         }
-                        if(rowDirrerence<0){
+                        if (rowDirrerence < 0) {
                             System.out.println("T is on the top");
                             posT = posHBeforeMove + 2;
                         }
@@ -178,7 +183,7 @@ public class Test {
                         currentPos = posT;
                         posT = posH + 1;
                     }
-                    tailTrailsSameRow(currentPos,posT);
+                    tailTrailsSameRow(currentPos, posT);
                 }
             }
 
