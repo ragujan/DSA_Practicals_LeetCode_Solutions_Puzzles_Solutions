@@ -1,4 +1,4 @@
-package com.rag.leet_code.concatenated_words.attemp_3;
+package com.rag.leet_code.concatenated_words.attempt_3;
 
 import java.util.*;
 import java.util.regex.Matcher;

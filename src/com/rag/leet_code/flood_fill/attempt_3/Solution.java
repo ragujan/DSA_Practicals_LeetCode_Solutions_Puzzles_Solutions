@@ -1,4 +1,4 @@
-package com.rag.leet_code.flood_fill.attemp_3;
+package com.rag.leet_code.flood_fill.attempt_3;
 
 public class Solution {
     int[][] screen = {
