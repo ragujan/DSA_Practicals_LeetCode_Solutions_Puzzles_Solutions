@@ -11,7 +11,9 @@ public class A {
 }
 class Test{
     public static void main(String[] args) {
-        A a = new A("a");
-        B b = new B("b");
+      int x = Integer.MAX_VALUE;
+      int y = Integer.min(x,x);
+        System.out.println(x);
+        System.out.println(y);
     }
 }

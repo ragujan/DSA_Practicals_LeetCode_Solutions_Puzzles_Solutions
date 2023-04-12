@@ -22,7 +22,7 @@ public class Graph {
 
     void DFSUtil(int v, boolean visited[]) {
         visited[v] = true;
-        System.out.println((v + " "));
+//        System.out.println((v + " "));
         Iterator<Integer> i = vertices[v].listIterator();
         while (i.hasNext()) {
             int n = i.next();
@@ -38,19 +38,20 @@ public class Graph {
     }
 
     public static void main(String args[]) {
-        Graph g = new Graph(4);
+        Graph g = new Graph(5);
 
         g.addEdge(0, 1);
         g.addEdge(0, 2);
         g.addEdge(1, 2);
-        g.addEdge(2, 0);
         g.addEdge(2, 3);
         g.addEdge(3, 3);
+        g.addEdge(3,4);
+        g.addEdge(1,4);
 
         System.out.println("Following is Depth First Traversal " + "(starting from vertex 2)");
 
         // Function call
-        g.DFS(1);
+        g.DFS(0);
     }
 
 }
