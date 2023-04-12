@@ -18,9 +18,9 @@ public class Solution {
             nodes.add(new ArrayList<>());
         }
 
-        for (int i = 0; i < roads.length; i++) {
-            nodes.get(roads[i][0]).add(new Pair(roads[i][1], roads[i][2]));
-            nodes.get(roads[i][1]).add(new Pair(roads[i][0], roads[i][2]));
+        for (int[] road : roads) {
+            nodes.get(road[0]).add(new Pair(road[1], road[2]));
+            nodes.get(road[1]).add(new Pair(road[0], road[2]));
         }
 
         for (int i = 1; i < nodeCount + 1; i++) {
@@ -111,7 +111,7 @@ class Util {
 class Test {
 
     public static void main(String[] args) {
-        int nodeCount = 4;
+        int nodeCount = 2;
         String inputString = "[[1,2,9],[2,3,6],[2,4,5],[1,4,7]]";
         int[][] input = Util.convertStrToArray(inputString);
         Solution solution = new Solution();
