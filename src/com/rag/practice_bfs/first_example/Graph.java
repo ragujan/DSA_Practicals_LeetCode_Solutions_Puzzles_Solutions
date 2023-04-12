@@ -31,7 +31,7 @@ public class Graph {
 
         while (queue.size() != 0) {
             startingNode = queue.poll();
-            System.out.println(startingNode + "  ");
+            System.out.print(startingNode + "  ");
             //it will print out 0
             Iterator<Integer> i = adj[startingNode].listIterator();
             //here we get the sub nodes that the zero holds,
@@ -46,7 +46,7 @@ public class Graph {
                 //if its not visited we go inside the if statement
                 // traverse and add the node to the queue
                 //so queue won't be empty
-                System.out.println("node "+startingNode +" has "+n);
+//                System.out.println("node "+startingNode +" has "+n);
                 if (!visited[n]) {
                     //since we are visiting the node make sure to
                     //mark it down on the boolean array
@@ -69,7 +69,7 @@ public class Graph {
         g.addEdge(2,3);
         g.addEdge(3,3);
         System.out.println("bro fist");
-        g.BFS(0);
+        g.BFS(2);
 
     }
 }
