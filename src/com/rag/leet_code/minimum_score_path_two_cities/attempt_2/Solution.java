@@ -1,6 +1,4 @@
-package com.rag.leet_code.minimum_score_path_two_cities.atempt_2;
-
-import com.rag.leet_code.minimum_score_path_two_cities.practice_dfs.Graph;
+package com.rag.leet_code.minimum_score_path_two_cities.attempt_2;
 
 import java.util.HashMap;
 import java.util.Map;
