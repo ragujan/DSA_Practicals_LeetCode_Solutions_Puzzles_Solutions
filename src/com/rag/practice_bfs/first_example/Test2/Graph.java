@@ -18,8 +18,8 @@ class Graph {
         this.roads = roads;
         connectedNodes = new HashSet<>();
         V = v;
-        adj = new LinkedList[v];
-        for (int i = 0; i < v; ++i)
+        adj = new LinkedList[v+1];
+        for (int i = 1; i < v+1; ++i)
             adj[i] = new LinkedList();
 
         for (int[] road : roads) {
@@ -32,11 +32,7 @@ class Graph {
         adj[v].add(w);
     }
 
-    public void createGraph(int[][] roads) {
-        for (int[] road : roads) {
-            addEdge(road[0], road[1]);
-        }
-    }
+
 
     public int getMinimumDistance() {
         Iterator<Integer> iterator = connectedNodes.iterator();
@@ -59,7 +55,7 @@ class Graph {
     void BFS(int s) {
         // Mark all the vertices as not visited(By default
         // set as false)
-        boolean visited[] = new boolean[V];
+        boolean visited[] = new boolean[V+1];
 
         // Create a queue for BFS
         LinkedList<Integer> queue = new LinkedList<Integer>();
@@ -93,9 +89,9 @@ class Graph {
 }
 class Test{
     public static void main(String args[]) {
-        String inputString = "[[1,2,9],[2,3,6],[2,4,5],[1,4,7]]";
+        String inputString = "[[6,2,7],[3,7,2],[9,6,5],[2,4,9],[7,8,7],[8,4,5],[6,1,10]]";
         int[][] input = Util.convertStrToArray(inputString);
-        Graph g = new Graph(7, input);
+        Graph g = new Graph(9, input);
         g.BFS(1);
         System.out.println("-----------");
         System.out.println(g.getMinimumDistance());

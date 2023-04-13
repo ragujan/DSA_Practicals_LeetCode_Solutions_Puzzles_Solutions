@@ -57,3 +57,27 @@ class Solution {
         return ans;
     }
 }
+class Greeting{
+    public String sayHello(){
+        return "Hello";
+    }
+    public void printHello(){
+        System.out.println("printing Hello message");
+    }
+    public String sayAndPrintHello(){
+        System.out.println("Hello from the method say and print hello method ");
+        return "Hello";
+    }
+}
+
+class Test4{
+    public static void main(String[] args) {
+        Greeting greeting = new Greeting();
+
+        String helloMessage = greeting.sayHello();
+        String helloMessage2 = greeting.sayAndPrintHello();
+        System.out.println(helloMessage);
+        System.out.println(helloMessage2);
+        greeting.printHello();
+    }
+}

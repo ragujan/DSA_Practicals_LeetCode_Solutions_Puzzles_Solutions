@@ -1,4 +1,4 @@
-package com.rag.leet_code.minimum_score_path_two_cities.atempt_1;
+package com.rag.leet_code.minimum_score_path_two_cities.attempt_1;
 
 import java.util.Iterator;
 import java.util.LinkedList;
