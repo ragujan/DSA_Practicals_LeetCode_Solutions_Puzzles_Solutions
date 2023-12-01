@@ -8,8 +8,9 @@ import java.util.regex.Pattern;
 
 public class Test2 {
     public static void main(String[] args) throws FileNotFoundException {
-//        testM();
-        solution();
+        testM();
+//        solution();
+        solution2();
     }
 
     static void solution() throws FileNotFoundException {
@@ -18,11 +19,8 @@ public class Test2 {
         int rowCount = 0;
         int total = 0;
         while (myReader.hasNextLine()) {
-
             String line = myReader.nextLine();
-
             String regex = "(one|two|three|four|five|six|seven|eight|nine|zero|0|1|2|3|4|5|6|7|8|9)";
-
             Pattern pattern = Pattern.compile(regex);
             //Retrieving the matcher object
             Matcher matcher = pattern.matcher(line);
@@ -69,7 +67,60 @@ public class Test2 {
         }
         System.out.println("total is " + total);
     }
+    public static void solution2() throws FileNotFoundException {
+        File myObj = new File("src/com/rag/advent/aoc_2023/day_1/input2.txt");
+        Scanner myReader = new Scanner(myObj);
+        int rowCount = 0;
+        int total = 0;
+        while (myReader.hasNextLine()) {
 
+            String line = myReader.nextLine();
+
+            String regex = "(one|two|three|four|five|six|seven|eight|nine|zero|0|1|2|3|4|5|6|7|8|9)";
+            regex = "(one|two|three|four|five|six|seven|eight|nine|zero|0|1|2|3|4|5|6|7|8|9)";
+
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(line);
+            List<String> firstLast = new LinkedList<>();
+            Set<String> mySet  = new LinkedHashSet<>();
+            int matchCount = 0;
+
+
+            for (int i = 0; i <line.length() ; i++) {
+                if(matcher.find(i)){
+                    String number = matcher.group();
+//                    System.out.println(number);
+                    mySet.add(number);
+                }
+            }
+            System.out.println(mySet);
+            firstLast.addAll(mySet);
+            String first = firstLast.get(0);
+            String last = firstLast.get(firstLast.size()-1);
+//            System.out.println("first is "+first+" last is "+last);
+
+            NumberHolder numberHolder = new NumberHolder();
+            numberMap().forEach((s, integer) -> {
+                if (s.equals(first)) {
+                    numberHolder.setNum1(integer);
+                }
+            });
+            numberMap().forEach((s, integer) -> {
+                if (s.equals(last)) {
+                    numberHolder.setNum2(integer);
+                }
+            });
+            String n1 = String.valueOf(numberHolder.getNum1());
+            String n2 = String.valueOf(numberHolder.getNum2());
+            String n1n2 = n1.concat(n2);
+
+            System.out.println(n1n2);
+            total += Integer.parseInt(n1n2);
+            System.out.println("line count is " + (rowCount + 1));
+            rowCount++;
+        }
+        System.out.println("total is " + total);
+    }
     static class NumberHolder {
         Integer num1;
         Integer num2;
@@ -115,7 +166,6 @@ public class Test2 {
     private static Map<String, Integer> numberMap() {
         Map<String, Integer> numberMap = new HashMap<>();
 
-        // Adding mappings for numbers 0-9
         numberMap.put("zero", 0);
         numberMap.put("one", 1);
         numberMap.put("two", 2);
@@ -158,44 +208,44 @@ public class Test2 {
 
     public static void testM() {
 
-        String regex = "(one|two|three|four|five|six|seven|eight|nine|zero)";
-        String text = "ragbagonejiklathreebogkanefiveragtwonine";
-        regex = "(one|two|three|four|five|six|seven|eight|nine|zero|0|1|2|3|4|5|6|7|8|9)";
-        text = "81fourtwo";
+        String text = "5twone2";
+        String regex = "(one|two|three|four|five|six|seven|eight|nine|zero|0|1|2|3|4|5|6|7|8|9)";
 
         Pattern pattern = Pattern.compile(regex);
         //Retrieving the matcher object
         Matcher matcher = pattern.matcher(text);
         List<String> firstLast = new LinkedList<>();
-        int matchCount = 0;
-        while (matcher.find()) {
-            String matchGroup = matcher.group();
-            System.out.println("Found: " + matchGroup);
-            if (matchCount == 0) {
-                firstLast.add(0, matchGroup);
-            }
-            firstLast.add(1, matchGroup);
-            matchCount++;
+        Set<String> mySet  = new LinkedHashSet<>();
 
+        for (int i = 0; i <text.length() ; i++) {
+            if(matcher.find(i)){
+                String number = matcher.group();
+                System.out.println(number);
+                mySet.add(number);
+            }
         }
-//        System.out.println("first and last numbers are " + firstLast.get(0) + " and " + firstLast.get(1));
+        System.out.println(mySet);
+        firstLast.addAll(mySet);
+        String first = firstLast.get(0);
+        String last = firstLast.get(firstLast.size()-1);
+        System.out.println("first is "+first+" last is "+last);
+
         NumberHolder numberHolder = new NumberHolder();
         numberMap().forEach((s, integer) -> {
-            if (s.equals(firstLast.get(0))) {
+            if (s.equals(first)) {
                 numberHolder.setNum1(integer);
             }
         });
         numberMap().forEach((s, integer) -> {
-            if (s.equals(firstLast.get(1))) {
+            if (s.equals(last)) {
                 numberHolder.setNum2(integer);
             }
         });
         String n1 = String.valueOf(numberHolder.getNum1());
         String n2 = String.valueOf(numberHolder.getNum2());
+//        this is where you get the two digits 22, 45, 78 etc
         String n1n2 = n1.concat(n2);
-        System.out.println("num 1 is " + numberHolder.getNum1() + " num 2 is " + numberHolder.getNum2());
-        System.out.println("sum is " + n1n2);
-
+        System.out.println(n1n2);
     }
 
     private static List<String> numberTextList() {
@@ -216,23 +266,4 @@ public class Test2 {
         return numberTextList;
     }
 
-    public static int matchCharCountInDifferentIndex(String word1, String word2) {
-        Map<Character, Integer> word_count_1 = new HashMap<>();
-        Map<Character, Integer> word_count_2 = new HashMap<>();
-
-        for (int i = 0; i < word1.length(); i++) {
-            if (word1.charAt(i) != word2.charAt(i)) {
-                word_count_1.compute(word1.charAt(i), (k, v) -> v == null ? 1 : v + 1);
-                word_count_2.compute(word2.charAt(i), (k, v) -> v == null ? 1 : v + 1);
-            }
-        }
-
-        int count = 0;
-        for (Map.Entry<Character, Integer> e : word_count_2.entrySet()) {
-            count += Math.min(e.getValue(), word_count_1.getOrDefault(e.getKey(), 0));
-        }
-
-        System.out.printf("word1=%s word2=%s result=%d%n", word_count_1, word_count_2, count);
-        return count;
-    }
 }
