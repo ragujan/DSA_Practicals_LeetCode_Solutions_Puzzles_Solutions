@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 public class Test2 {
     public static void main(String[] args) throws FileNotFoundException {
-        testM();
-//        solution();
+//        testM();
+        solution();
     }
 
     static void solution() throws FileNotFoundException {
@@ -19,9 +19,6 @@ public class Test2 {
         int total = 0;
         while (myReader.hasNextLine()) {
 
-            if(rowCount == 15){
-                break;
-            }
             String line = myReader.nextLine();
 
             String regex = "(one|two|three|four|five|six|seven|eight|nine|zero|0|1|2|3|4|5|6|7|8|9)";
@@ -64,7 +61,6 @@ public class Test2 {
                 String n2 = String.valueOf(numberHolder.getNum2());
                 String n1n2 = n1.concat(n2);
                 System.out.println("num is " + n1n2);
-//                total +=(numberHolder.getNum1() + numberHolder.getNum2());
                 total += Integer.parseInt(n1n2);
                 System.out.println("sum is " + total);
             }
