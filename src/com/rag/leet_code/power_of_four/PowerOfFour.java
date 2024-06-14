@@ -1,4 +1,4 @@
-package com.rag.leet_code;
+package com.rag.leet_code.power_of_four;
 
 public class PowerOfFour {
 	public static void main(String[] args) {
