@@ -1,8 +1,6 @@
 package com.rag.practicals;
 
 
-import java.sql.Array;
-import java.util.Arrays;
 
 public class Test{
 

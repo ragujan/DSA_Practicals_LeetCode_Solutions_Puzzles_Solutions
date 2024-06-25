@@ -5,7 +5,6 @@ import java.util.*;
 public class ReverseList {
 	public static void main(String[] args) {
 		LinkedList<Integer> list = new LinkedList<>();
-		LinkedList<Integer> sortedList = new LinkedList<>();
 		// Array of numbers to add to the LinkedList
 		int[] numbers = { 1, 4, 5, 1, 3, 4, 2, 6 };
 
@@ -90,7 +89,6 @@ public class ReverseList {
 	}
 
 	public static void insertionSort(LinkedList<Integer> list) {
-		int currentNode = list.get(0);
 
 		for (int i = 0; i < list.size(); i++) {
 
