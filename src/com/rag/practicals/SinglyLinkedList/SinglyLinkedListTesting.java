@@ -14,24 +14,24 @@ public class SinglyLinkedListTesting {
 	}
 
 	public void buildList() {
-	    if (numbers == null || numbers.length == 0) {
-	        return ;
-	    }
+		if (numbers == null || numbers.length == 0) {
+			return;
+		}
 
-	    Node head = null;
+		Node head = null;
 
-	    for (int i = 1; i < numbers.length; i++) {
-	        Node newNode = new Node(numbers[i], null);
-	        if(head == null) {
-	        	head = newNode;
-	        }else {
-	        	Node current = head;
-	        	while(current.nextNode !=null) {
-	        		current = current.nextNode;
-	        	}
-	        	current.nextNode = newNode;
-	        }
-	    }
+		for (int i = 0; i < numbers.length; i++) {
+			Node newNode = new Node(numbers[i], null);
+			if (head == null) {
+				head = newNode;
+			} else {
+				Node current = head;
+				while (current.nextNode != null) {
+					current = current.nextNode;
+				}
+				current.nextNode = newNode;
+			}
+		}
 		printNode(head);
 
 	}
@@ -39,9 +39,14 @@ public class SinglyLinkedListTesting {
 	public void printNode(Node node) {
 		Node currentNode = node;
 		while (currentNode.nextNode != null) {
-			System.out.println("node " + node.value);
-			currentNode = node.nextNode;
+			System.out.println("node is " + currentNode.value);
+			currentNode = currentNode.nextNode;
+
+			if (currentNode.nextNode == null) {
+				System.out.println("final node is " + currentNode.value);
+			}
 		}
+		System.out.println("--------");
 
 	}
 
