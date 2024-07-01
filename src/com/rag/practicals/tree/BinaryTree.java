@@ -8,5 +8,5 @@ public interface BinaryTree<E> extends Tree<E>{
     // Returns the position of p's right child, if there is no returns null
     Position<E> right(Position<E> p)throws IllegalArgumentException;
     // Returns the position of p's sibling, if there is no returns null
-    Position<E> sibilig(Position<E> p)throws IllegalArgumentException;
+    Position<E> sibling(Position<E> p)throws IllegalArgumentException;
 }
