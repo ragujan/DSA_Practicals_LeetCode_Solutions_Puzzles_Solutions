@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class GraphFirst<T> {
 
@@ -90,6 +91,29 @@ public class GraphFirst<T> {
 		DFSUtil(t, visitedArray);
 	}
 
+	public void BFS(T startingNode){
+		Queue<T> queue = new LinkedList<>();
+		LinkedList<T> visited = new LinkedList<>();
+
+		visited.add(startingNode);
+		queue.add(startingNode);
+
+
+		while (!queue.isEmpty()) {
+			 T currentNode = queue.poll();
+			 System.out.print(" "+ currentNode);
+
+			 for (T neighbour : map.get(currentNode)) {
+				 
+				if(!visited.contains(neighbour)){
+					visited.add(neighbour);
+					queue.add(neighbour);
+				}
+			 }
+		}
+
+	}
+
 	public static void main(String[] args) {
 		// Object of graph is created.
 		GraphFirst<Integer> g = new GraphFirst<Integer>();
@@ -106,6 +130,8 @@ public class GraphFirst<T> {
 
 		System.out.println("Graph:\n" + g.toString());
 		g.DFS(0);
+		System.out.println("BFS ");
+        g.BFS(0);
 
 		// Gives the no of vertices in the graph.
 		// g.getVertexCount();
