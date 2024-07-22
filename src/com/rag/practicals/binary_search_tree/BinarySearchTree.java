@@ -34,48 +34,89 @@ public class BinarySearchTree {
 		if (root.key > key) {
 			return search(root.left, key);
 		}
-		return null;
+		return root;
 	}
 
-	Node deleteNode(Node node, int key) {
+	// Given a binary search tree and a key, this function deletes the key and
+	// returns the new root
+	Node deleteNode(Node root, int key) {
+		// Base case
 		if (root == null) {
 			return root;
 		}
 
+		// If the key to be deleted is smaller than the root's key, then it lies in the
+		// left subtree
 		if (key < root.key) {
-			root.left = deleteNode(node.left, key);
+			root.left = deleteNode(root.left, key);
 		}
-		if (key > root.key) {
-			root.right = deleteNode(node.right, key);
+		// If the key to be deleted is greater than the root's key, then it lies in the
+		// right subtree
+		else if (key > root.key) {
+			root.right = deleteNode(root.right, key);
 		}
-//		node to be deleted
-		if (key == root.key) {
-			
-			if(root.left == null) {
+		// If key is same as root's key, then this is the node to be deleted
+		else {
+			// Node with only one child or no child
+			if (root.left == null) {
 				return root.right;
-			}
-			if(root.right == null) {
+			} else if (root.right == null) {
 				return root.left;
 			}
-			
-			root.key = minValue(root.right);
-			root.right = deleteNode(root.right,root.key);
 
+			// Node with two children: Get the inorder successor (smallest in the right
+			// subtree)
+			root.key = minValue(root.right);
+
+			// Delete the inorder successor
+			root.right = deleteNode(root.right, root.key);
 		}
+
 		return root;
 	}
-	
+
 	int minValue(Node root) {
 		int minV = root.key;
-		
-		while(root.left != null) {
+
+		while (root.left != null) {
 			minV = root.left.key;
 			root = root.left;
 		}
 		return minV;
-		
+
 	}
 
+	public void inOrderTraversal(Node root) {
+		if (root == null) {
+			return;
+		}
+
+		inOrderTraversal(root.left);
+		System.out.println("key is " + root.key);
+		inOrderTraversal(root.right);
+
+	}
+	public void preOrderTraversal(Node root) {
+		
+		if (root == null) {
+			return;
+		}
+
+		System.out.println("key is " + root.key);
+		inOrderTraversal(root.left);
+		inOrderTraversal(root.right);
+
+	}
+	public void postOrderTraversal(Node root) {
+		if (root == null) {
+			return;
+		}
+
+		inOrderTraversal(root.left);
+		inOrderTraversal(root.right);
+		System.out.println("key is " + root.key);
+
+	}
 	public static void main(String[] args) {
 		BinarySearchTree tree = new BinarySearchTree();
 
@@ -87,22 +128,32 @@ public class BinarySearchTree {
 		tree.insert(tree.root, 70);
 		tree.insert(tree.root, 60);
 		tree.insert(tree.root, 80);
+		System.out.println("In order ");
+		tree.inOrderTraversal(tree.root);
+		System.out.println("pre order ");
+		tree.preOrderTraversal(tree.root);
+		System.out.println("post order ");
+		tree.postOrderTraversal(tree.root);
 
-		// Key to be found
-		int key = 6;
+		tree.root = tree.deleteNode(tree.root, 50);// Key to be found
 
-		// Searching in a BST
-		if (tree.search(tree.root, key) == null)
-			System.out.println(key + " not found");
-		else
-			System.out.println(key + " found");
-
-		key = 60;
-
-		// Searching in a BST
-		if (tree.search(tree.root, key) == null)
-			System.out.println(key + " not found");
-		else
-			System.out.println(key + " found");
+		System.out.println("after deleting ");
+		tree.postOrderTraversal(tree.root);
+//		System.out.println("deleted tree "+deleted.key);
+//		int key = 6;
+//
+//		// Searching in a BST
+//		if (tree.search(tree.root, key) == null)
+//			System.out.println(key + " not found");
+//		else
+//			System.out.println(key + " found");
+//
+//		key = 60;
+//
+//		// Searching in a BST
+//		if (tree.search(tree.root, key) == null)
+//			System.out.println(key + " not found");
+//		else
+//			System.out.println(key + " found");
 	}
 }
