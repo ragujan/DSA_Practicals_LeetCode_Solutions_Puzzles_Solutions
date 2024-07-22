@@ -73,6 +73,23 @@ public class GraphFirst<T> {
 		}
 	}
 
+	public void DFSUtil(T t, LinkedList<T> visitedArray) {
+		visitedArray.add(t);
+		System.out.println("Visited T " + t.toString());
+
+		for (T w : map.get(t)) {
+			if (!visitedArray.contains(w)) {
+				DFSUtil(w, visitedArray);
+			}
+		}
+
+	}
+
+	public void DFS(T t) {
+		LinkedList<T> visitedArray = new LinkedList<>();
+		DFSUtil(t, visitedArray);
+	}
+
 	public static void main(String[] args) {
 		// Object of graph is created.
 		GraphFirst<Integer> g = new GraphFirst<Integer>();
@@ -81,27 +98,27 @@ public class GraphFirst<T> {
 		// Since the graph is bidirectional,
 		// so boolean bidirectional is passed as true.
 		g.addEdge(0, 1, true);
-		g.addEdge(0, 4, true);
-		g.addEdge(1, 2, true);
-		g.addEdge(1, 3, true);
-		g.addEdge(1, 4, true);
+		g.addEdge(1, 0, true);
+		g.addEdge(0, 2, true);
+		g.addEdge(2, 0, true);
 		g.addEdge(2, 3, true);
-		g.addEdge(3, 4, true);
+		g.addEdge(3, 2, true);
 
 		System.out.println("Graph:\n" + g.toString());
+		g.DFS(0);
 
 		// Gives the no of vertices in the graph.
-		g.getVertexCount();
+		// g.getVertexCount();
 
-		// Gives the no of edges in the graph.
-		g.getEdgesCount(true);
+		// // Gives the no of edges in the graph.
+		// g.getEdgesCount(true);
 
-		// Tells whether the edge is present or not.
-		g.hasEdge(3, 4);
+		// // Tells whether the edge is present or not.
+		// g.hasEdge(3, 4);
 
-		// Tells whether vertex is present or not
-		g.hasVertex(5);
-		g.neighbours(1);
+		// // Tells whether vertex is present or not
+		// g.hasVertex(5);
+		// g.neighbours(1);
 
 	}
 
