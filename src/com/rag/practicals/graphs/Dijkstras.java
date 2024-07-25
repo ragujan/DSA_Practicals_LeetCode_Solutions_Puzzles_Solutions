@@ -1,6 +1,5 @@
 package com.rag.practicals.graphs;
-
-public class Dijkstras {
+public class Dijkstras<T> {
 
     static final int VERTEX_COUNT = 9;
 
@@ -37,6 +36,7 @@ public class Dijkstras {
 
             sptSet[u] = true;
 
+            // iterate throught u's adjacency vertices
             for (int verticeOfU = 0; verticeOfU < VERTEX_COUNT; verticeOfU++) {
 
                 // conditions are
@@ -69,7 +69,7 @@ public class Dijkstras {
                 { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
                 { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
                 { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
-        Dijkstras t = new Dijkstras();
+        Dijkstras<Integer> t = new Dijkstras<Integer>();
 
         // Function call
         t.algorithmInPlay(graph, 0);
