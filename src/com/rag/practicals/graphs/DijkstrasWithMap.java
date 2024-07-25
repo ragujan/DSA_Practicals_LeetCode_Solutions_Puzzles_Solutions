@@ -10,13 +10,14 @@ import java.util.Set;
 
 public class DijkstrasWithMap<T> {
 
-	private Map<T, List<VertexWeight>> map = new HashMap<>();
+	private Map<T, List<VertexAndWeight>> map = new HashMap<>();
 
-	public class VertexWeight {
+	// To store the vertex and Weight 
+	public class VertexAndWeight {
 		T vertice;
 		int weight;
 
-		public VertexWeight(T vertice, int weight) {
+		public VertexAndWeight(T vertice, int weight) {
 			this.vertice = vertice;
 			this.weight = weight;
 		}
@@ -32,7 +33,7 @@ public class DijkstrasWithMap<T> {
 
 
 	public void addVertexWithWitWeight(T s) {
-		map.put(s, new LinkedList<VertexWeight>());
+		map.put(s, new LinkedList<VertexAndWeight>());
 	}
 
 	public void addEdge(T source, T destination, int weight, boolean bidirectional) {
@@ -42,9 +43,9 @@ public class DijkstrasWithMap<T> {
 		if (!map.containsKey(destination)) {
 			addVertexWithWitWeight(destination);
 		}
-		map.get(source).add(new VertexWeight(destination, weight));
+		map.get(source).add(new VertexAndWeight(destination, weight));
 		if (bidirectional == true) {
-			map.get(destination).add(new VertexWeight(source, weight));
+			map.get(destination).add(new VertexAndWeight(source, weight));
 		}
 	}
 
@@ -54,7 +55,7 @@ public class DijkstrasWithMap<T> {
 
 	public Set<T> initializeSpt() {
 		Set<T> sptSet = new LinkedHashSet<>();
-		for (Map.Entry<T, List<VertexWeight>> entry : map.entrySet()) {
+		for (Map.Entry<T, List<VertexAndWeight>> entry : map.entrySet()) {
 			sptSet.add(entry.getKey());
 
 		}
@@ -64,7 +65,7 @@ public class DijkstrasWithMap<T> {
 	public Map<T, Integer> initializeDistMap(T source) {
 		Map<T, Integer> distMap = new HashMap<>();
 
-		for (Map.Entry<T, List<VertexWeight>> entry : map.entrySet()) {
+		for (Map.Entry<T, List<VertexAndWeight>> entry : map.entrySet()) {
 			distMap.put(entry.getKey(), Integer.MAX_VALUE);
 		}
 		distMap.put(source, 0);
@@ -126,10 +127,10 @@ public class DijkstrasWithMap<T> {
 	}
 
 	public int getWeight(T source, T destination) {
-		List<VertexWeight> vertices = map.get(source);
+		List<VertexAndWeight> vertices = map.get(source);
 		int weight = 0;
 
-		for (VertexWeight vertexWeight : vertices) {
+		for (VertexAndWeight vertexWeight : vertices) {
 			if (vertexWeight.vertice.equals(destination)) {
 				weight = vertexWeight.weight;
 				break;
@@ -154,9 +155,9 @@ public class DijkstrasWithMap<T> {
 	public Set<T> getAdjacencyVertices(T source) {
 		Set<T> set = new HashSet<>();
 		if (map.containsKey(source)) {
-			List<VertexWeight> vertices = map.get(source);
+			List<VertexAndWeight> vertices = map.get(source);
 
-			for (VertexWeight vertexWeight : vertices) {
+			for (VertexAndWeight vertexWeight : vertices) {
 				set.add(vertexWeight.vertice);
 			}
 		}
@@ -170,7 +171,7 @@ public class DijkstrasWithMap<T> {
 
 		for (T v : map.keySet()) {
 			builder.append(v.toString() + ": ");
-			for (VertexWeight w : map.get(v)) {
+			for (VertexAndWeight w : map.get(v)) {
 				System.out.println("adjacency of " + v.toString() + " is " + w.vertice);
 				builder.append(w.vertice.toString() + " ");
 			}
