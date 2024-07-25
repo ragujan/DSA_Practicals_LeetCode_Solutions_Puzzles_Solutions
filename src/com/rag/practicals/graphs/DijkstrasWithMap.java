@@ -12,7 +12,7 @@ public class DijkstrasWithMap<T> {
 
 	private Map<T, List<VertexAndWeight>> map = new HashMap<>();
 
-	// To store the vertex and Weight 
+	// To store the vertex and Weight
 	public class VertexAndWeight {
 		T vertice;
 		int weight;
@@ -30,7 +30,6 @@ public class DijkstrasWithMap<T> {
 			return weight;
 		}
 	}
-
 
 	public void addVertexWithWitWeight(T s) {
 		map.put(s, new LinkedList<VertexAndWeight>());
@@ -101,17 +100,19 @@ public class DijkstrasWithMap<T> {
 			T u = minDistance(sptSet, distMap);
 			sptSet.add(u);
 
-			// get the adjanceny vertices of u 
+			// get the adjanceny vertices of u
 			Set<T> adjacencyVerticesOfU = getAdjacencyVertices(u);
 			// iterate through the adjancency vertices of U
 			for (T t : adjacencyVerticesOfU) {
 
-				// Conditions are 
-				// adjacency vertex t of U, shouldn't be int he sptSet
-				// the weight between U and t, shouldn't be 0
-				// weight of U shouldn't inifinite value or Integer.MAX_VALUE
-				// Sum of (U + src) + weight of U and T, should be lesser than 
-				// distmap's t's value
+				// Conditions are
+				// adjacency vertex t of U, shouldn't be in the sptSet, !sptSet.contains(t)
+				// the weight between U and t, shouldn't be 0, getWeight(u, t) != 0
+				// weight of U shouldn't inifinite/Integer.MAX_VALUE value, distMap.get(u) !=
+				// Integer.MAX_VALUE
+				// Sum of Weight of (U + src) and weight of (U+T), should be lesser than
+				// distmap's t's Weight
+				// distMap.get(u) + getWeight(u, t) < distMap.get(t)
 				if (!sptSet.contains(t)
 						&& getWeight(u, t) != 0
 						&& distMap.get(u) != Integer.MAX_VALUE
@@ -149,7 +150,6 @@ public class DijkstrasWithMap<T> {
 			return false;
 		}
 	}
-
 
 	// gives you a set of adjancency vertices when a Vertext is given
 	public Set<T> getAdjacencyVertices(T source) {
@@ -189,6 +189,20 @@ public class DijkstrasWithMap<T> {
 		g.addEdge(1, 3, 3, false);
 		g.addEdge(7, 4, 5, false);
 		g.addEdge(4, 3, 6, false);
+
+		// graph representation
+		// [n] => weight
+		// n=> Vertex
+		// **************************
+		// * 0---[6]---1---[3]---3 *
+		// * |*********|*********| *
+		// * |*********|*********| *
+		// * [3]******[4]*******[6] *
+		// * |*********|*********| *
+		// * |*********|*********| *
+		// * 7---[5]---4---------| *
+		// **************************
+
 		g.dijkstrasInAction(0);
 	}
 
