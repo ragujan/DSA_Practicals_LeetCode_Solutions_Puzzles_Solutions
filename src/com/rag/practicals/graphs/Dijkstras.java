@@ -1,4 +1,5 @@
 package com.rag.practicals.graphs;
+
 public class Dijkstras<T> {
 
     static final int VERTEX_COUNT = 9;
@@ -53,6 +54,10 @@ public class Dijkstras<T> {
                 }
             }
         }
+        for (int i = 0; i < dist.length; i++) {
+            System.out.print("i: " + i + " => " + dist[i] + "|| ");
+        }
+
     }
 
     // Driver's code
@@ -72,6 +77,6 @@ public class Dijkstras<T> {
         Dijkstras<Integer> t = new Dijkstras<Integer>();
 
         // Function call
-        t.algorithmInPlay(graph, 0);
+        t.algorithmInPlay(graph, 2);
     }
 }
