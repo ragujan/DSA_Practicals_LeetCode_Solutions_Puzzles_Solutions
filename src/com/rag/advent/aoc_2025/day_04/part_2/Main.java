@@ -1,14 +1,10 @@
 package com.rag.advent.aoc_2025.day_04.part_2;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException {
@@ -16,7 +12,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
 
-        BigInteger totalBatteryJoltage = BigInteger.valueOf(0);
 
         String fileName;
         if (option == 1) {
@@ -26,48 +21,99 @@ public class Main {
         }
 
         Path p = Path.of(Main.class.getResource(fileName).toURI());
-//        Path p = Path.of(Main.class.getResource("input.txt").toURI());
+        //Path p = Path.of(Main.class.getResource("input.txt").toURI());
         List<String> lines = Files.readAllLines(p);
-        long invalidIdCount = 0;
-//items are separated by commas
+
+        List<Character[]> rows = new ArrayList<>();
+        //items are separated by commas
         for (String line : lines) {
-//            System.out.println("line "+line);
-            String number = line;
+            char[] chars = line.toCharArray();
+            Character[] row = new Character[chars.length];
+            for (int i = 0; i < chars.length; i++) {
+                row[i] = chars[i];
+            }
+            rows.add(row);
+        }
+        int grandTotalRemoved = 0;
+        while(true){
+            Map<Integer, Object> result = paperToBeRemoved(rows);
 
-            BigInteger max = calculationOfBatteryJoltage(number);
+            int roundCount = (Integer) result.get(1);
+            int[][] toBeReplaced = (int[][]) result.get(2);
 
-            totalBatteryJoltage = totalBatteryJoltage.add(max);
 
+            if (roundCount == 0) {
+                break;
+            }
+            rows = replaceAccessedPapers(rows, toBeReplaced);
+            grandTotalRemoved += roundCount;
+        }
+        System.out.println("Total paper roll that can be accessed: " + grandTotalRemoved);
+    }
+
+    public static Map<Integer,Object> paperToBeRemoved(List<Character[]> rows){
+
+//        first item would be count of papers to be removed
+//        second item would be 2D array indicating which papers to be removed
+
+        int[] dr = {-1, -1, -1,  0, 0,  1, 1, 1};
+        int[] dc = {-1,  0,  1, -1, 1, -1, 0, 1};
+
+        int totalPaperRollCanBeAccessed = 0;
+        int[][] toBeReplaced = new int[rows.size()][rows.getFirst().length];
+
+        for (int i = 0; i < rows.size(); i++) {
+            Character[] row = rows.get(i);
+            int pos = 0;
+            for (Character c : row) {
+//                only need to check @ positions
+                if (c == '@') {
+                    int adjacentCount = 0;
+//                    check for all adjacents
+                    for(int d=0; d<8;d++){
+                        int lookupRow = i + dr[d];
+                        int lookupCol = pos + dc[d];
+                        Character adjacentChar = getAdjacentCharacter(rows, lookupRow, lookupCol);
+                        if(adjacentChar != null && adjacentChar == '@'){
+                            adjacentCount++;
+                        }
+                    }
+                    if(adjacentCount < 4 ) {
+                        totalPaperRollCanBeAccessed++;
+                        toBeReplaced[i][pos] = 1;
+                    }
+                }
+                pos++;
+
+            }
         }
 
-        System.out.println("Total battery joltage: " + totalBatteryJoltage);
-
+        Map<Integer,Object> resultMap = new HashMap<>();
+        resultMap.put(1, totalPaperRollCanBeAccessed);
+        resultMap.put(2, toBeReplaced);
+        return resultMap;
 
     }
 
-    static BigInteger calculationOfBatteryJoltage(String number){
+    public static List<Character[]> replaceAccessedPapers(List<Character[]> rows, int[][] toBeReplaced) {
 
-        int k = 12;
-
-        int toRemove = number.length()-k;
-        Deque<Character> stack = new ArrayDeque<>();
-        for (char c : number.toCharArray()) {
-            while(toRemove>0 && !stack.isEmpty() &&  c > stack.peekLast()){
-                stack.pollLast();
-                toRemove--;
-            }
-            stack.addLast(c);
-        }
-        StringBuilder sb = new StringBuilder();
-        int count = 0;
-
-        for(char c: stack){
-            if(count++<k){
-                sb.append(c);
+        for (int i = 0; i < toBeReplaced.length; i++) {
+            for (int j = 0; j < toBeReplaced[i].length; j++) {
+                if (toBeReplaced[i][j] == 1) {
+                    rows.get(i)[j] = 'X';
+                }
             }
         }
+        return rows;
+    }
+    public static Character getAdjacentCharacter(List<Character[]> rows, int rowIndex, int colIndex) {
+        int numRows = rows.size();
+        int numCols = rows.getFirst().length;
 
-        return new BigInteger(sb.toString());
+        if(rowIndex < 0 || rowIndex >= numRows || colIndex < 0 || colIndex >= numCols) {
+            return null; // Out of bounds
+        }
+        return rows.get(rowIndex)[colIndex];
     }
 
 
